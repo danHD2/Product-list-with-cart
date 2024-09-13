@@ -1,0 +1,245 @@
+/*
+  1. Use a more-intuitive box-sizing model.
+*/
+*, *::before, *::after {
+    box-sizing: border-box;
+  }
+  
+  /*
+    2. Remove default margin
+  */
+  * {
+    margin: 0;
+  }
+  
+  /*
+    Typographic tweaks!
+    3. Add accessible line-height
+    4. Improve text rendering
+  */
+  body {
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+  }
+  
+  /*
+    5. Improve media defaults
+  */
+  img, picture, video, canvas, svg {
+    display: block;
+    max-width: 100%;
+  }
+  
+  /*
+    6. Remove built-in form typography styles
+  */
+  input, button, textarea, select {
+    font: inherit;
+  }
+  
+  /*
+    7. Avoid text overflows
+  */
+  p, h1, h2, h3, h4, h5, h6 {
+    overflow-wrap: break-word;
+  }
+  
+  /*
+    8. Create a root stacking context
+  */
+  #root, #__next {
+    isolation: isolate;
+  }
+
+  #root {
+    display: flex;
+    flex-direction: row;
+    background-color: hsl(20, 50%, 98%);
+    font-family: "Red Hat Text", sans-serif;
+    height: 100vh;
+  }
+
+  #left-div { 
+    padding: 50px 0 0 50px;
+  }
+
+  #title {
+    padding-bottom: 10px;
+  }
+
+  #content {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .product-card {
+    margin: 10px;
+    position: relative;
+  }
+
+.product-img {
+    width: 170px;
+    border-radius: 10px;
+}
+
+.category {
+    font-size: 12px;
+    padding-top: 20px;
+    color:hsl(14, 25%, 72%) ;
+}
+
+.price {
+    font-size: 12px;
+    font-weight: 700;
+    color: hsl(14, 86%, 42%);
+}
+
+h3 {
+    font-size: 12px;
+    color: hsl(14, 65%, 9%);
+}
+
+.btns {
+  border-radius: 50px;
+  display: flex;
+  align-items: center;
+  padding: 5px 10px 5px 10px;
+  border: 1px solid hsl(12, 20%, 44%);
+  position: absolute;
+  bottom: 60px;
+  left: 35px;
+  cursor: pointer;
+  background-color: white;
+}
+
+.btns:hover {
+  p {
+     color: hsl(14, 86%, 42%)
+    ;}
+}
+
+.btn-icon {
+  width: 15px;
+}
+
+.btns p {
+  font-size: 10px;
+  font-weight: 700;
+  color: hsl(14, 65%, 9%);
+  transition: 0.5s;
+  padding: 3px 5px 3px 5px;
+}
+
+.selected {
+  border: 2px solid hsl(14, 86%, 42%);
+}
+
+.selected-btn {
+  background-color: hsl(14, 86%, 42%);
+  color: white;
+}
+
+#cart {
+  width: 250px;
+  padding: 20px;
+  background-color: white;
+  margin: 70px 70px 0 0;
+}
+
+#your-cart {
+  color: hsl(14, 86%, 42%);
+}
+
+#empty-cart {
+  width: 80px;
+  margin: 20px auto;
+}
+
+#empty-text {
+  font-size: 10px;
+  text-align: center;
+  color:hsl(12, 20%, 44%);
+}
+
+.item-div { 
+  width: 100%;
+  position: relative;
+  border-bottom: 1px solid rgb(240, 240, 240);
+  padding: 15px 0 10px 0;
+ }
+
+ .item-div h5 {
+  color: hsl(14, 65%, 9%);
+ }
+
+ .quantity {
+  display: inline-block;
+  padding-right: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  color: hsl(14, 86%, 42%);
+ }
+
+ .cart-price {
+  color: hsl(12, 20%, 44%);
+  display: inline-block;
+  font-size: 14px;
+ }
+
+ .subtotal {
+  display: inline-block;
+  padding-left: 5px;
+  color: hsl(12, 20%, 44%);
+  font-weight: 500;
+  font-size: 14px;
+ }
+
+ .x-icon {
+  position: absolute;
+  right: 0;
+  top: 40%;
+  border: 1px solid hsl(12, 20%, 44%);
+  padding: 2px;
+  border-radius: 20px;
+  cursor: pointer;
+ }
+
+ #total-title {
+  
+  font-size: 14px;
+  color: hsl(12, 20%, 44%);
+  font-weight: 500;
+ }
+
+ .total-div  {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0 20px 0;
+ }
+
+ #carbon-div {
+  background-color: hsl(20, 50%, 98%);
+  border-radius: 20px;
+  display: flex;
+  padding: 10px;
+  align-items: center;
+  flex-wrap: wrap;
+ }
+
+#carbon-text {
+  font-size: 10px;
+  padding-left: 5px;
+  color: hsl(14, 65%, 9%);
+}
+
+#confirm-button {
+  width: 100%;
+  padding: 10px 0 10px 0;
+  margin: 20px 0 0 0;
+  background-color: hsl(14, 86%, 42%);
+  color: white;
+  border: none;
+  border-radius: 50px;
+  font-size: 14px;
+  cursor: pointer;
+}
