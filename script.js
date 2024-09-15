@@ -38,8 +38,7 @@ cartCard.appendChild(emptyText);
 
 const cart = [];
 
-const addToCart = (product, productId) => {
-     
+const addToCart = (product) => {   
      
 
     const productIndex = cart.findIndex(item => item.name === product.name);
@@ -51,20 +50,49 @@ const addToCart = (product, productId) => {
      cart.push({ ...product, quantity: 1});
     }
 
-    console.log(cart);
+   
     updateCart();
-    updateBtn(productId);
+    updateBtn(product);
 }
 
-const removeFromCart = (product, productId) => {
+const decrement = (product) => {
+    const productIndex = cart.findIndex(cartItem => cartItem.name === product.name);
+    if (productIndex !== -1) {
+        const productInCart = cart[productIndex]; 
+
+        const btn = document.querySelector(`[data-product-name="${product.name}"]`);
+
+        btn.innerHTML = ` <button class="minus-icon-btn icon-btn">
+                    <img src="./assets/images/icon-decrement-quantity.svg" class="minus-icon">
+                </button>
+                <p>${productInCart.quantity}</p>
+                <button class="plus-icon-btn icon-btn">
+                    <img class="plus-icon" src="./assets/images/icon-increment-quantity.svg">
+                </button>`;
+
+        const plus = btn.querySelector(".plus-icon-btn");
+        const minus = btn.querySelector(".minus-icon-btn");
+        plus.addEventListener("click", () => addToCart(product));
+        minus.addEventListener("click", () => removeFromCart(product));
+
+        updateCart();
+}
+}
+
+
+const removeFromCart = (product) => {
+    
     const productIndex = cart.findIndex(cartItem => cartItem.name === product.name);
 
     if (productIndex !== -1) {
        if(cart[productIndex].quantity > 1) {
         cart[productIndex].quantity--;
+        decrement(product);
     } else {
+       
          cart.splice(productIndex, 1);
-         updateBtn(productId);
+         
+         removebtn(product);
     }
 updateCart();
 
@@ -72,17 +100,42 @@ updateCart();
 }
 }
 
-const updateBtn = (productId) => {
+const removebtn = (product) => {
+    
+    const btn = document.querySelector(`[data-product-name="${product.name}"]`);
+    
+    if (btn) {
+        btn.classList.remove("selected-btn");
+        btn.innerHTML = `<img src="./assets/images/icon-add-to-cart.svg" class="btn-icon"><p class="add-to-cart-text">Add to Cart</p>`;
+        const addToCartText = btn.querySelector(".add-to-cart-text");
+        addToCartText.addEventListener("click", () => addToCart(product));
+    }
+}
 
-    const btn = document.querySelector(`[data-product-id="${productId}"]`);
+const updateBtn = (product) => {
+
+    const btn = document.querySelector(`[data-product-name="${product.name}"]`);
+    const productInCart = cart.find(cartItem => cartItem.name === product.name);
     
 
-    if (btn.classList.contains("selected-btn")) {
-        btn.classList.remove("selected-btn")
-        btn.innerHTML = `<img src="./assets/images/icon-add-to-cart.svg" class="btn-icon"><p>Add to Cart</p>`;
-    } else {
+    if (productInCart) {
         btn.classList.add("selected-btn");
-        btn.innerHTML = `<img src="./assets/images/icon-decrement-quantity.svg" id="minus-icon"><p>${productId}</p><img src="./assets/images/icon-increment-quantity.svg">`;
+        btn.innerHTML = `<button class="minus-icon-btn icon-btn">
+                <img src="./assets/images/icon-decrement-quantity.svg" class="minus-icon">
+            </button>
+            <p>${productInCart.quantity}</p>
+            <button class="plus-icon-btn icon-btn">
+                <img class="plus-icon" src="./assets/images/icon-increment-quantity.svg">
+            </button>`;
+        const plus = btn.querySelector(".plus-icon-btn");
+        const minus = btn.querySelector(".minus-icon-btn");
+        plus.addEventListener("click", () => addToCart(product));
+        minus.addEventListener("click", () => removeFromCart(product)); 
+    } else {
+        btn.classList.remove("selected-btn")
+        btn.innerHTML = `<img src="./assets/images/icon-add-to-cart.svg" class="btn-icon"><p class="add-to-cart-text">Add to Cart</p>`;
+        const addToCartText = btn.querySelector(".add-to-cart-text");
+        addToCartText.addEventListener("click", () => addToCart(product));
     }
     
 
@@ -139,8 +192,8 @@ const updateCart = () => {
             xIcon.src = "./assets/images/icon-remove-item.svg";
             xIcon.classList = "x-icon";
             itemDiv.appendChild(xIcon);
-
-            xIcon.addEventListener("click", () => removeFromCart(item, index));
+            const buttonIndex = cart.findIndex(item => item.name === item.name);
+            xIcon.addEventListener("click", () => removeFromCart(item, buttonIndex));
 
 
             totalPrice += subtotal;
@@ -220,15 +273,16 @@ fetch(`./data.json`)
         const btn = document.createElement("button");
         btn.id = `btn${index}`;
         btn.classList = "btns";
-        btn.setAttribute(`data-product-id`, index);
+        btn.setAttribute(`data-product-name`, product.name);
         card.appendChild(btn);
-        btn.addEventListener("click", () => addToCart(product, index));
+        
+       
 
         const btnIcon = document.createElement("img");
         btnIcon.src = "./assets/images/icon-add-to-cart.svg";
         btnIcon.classList = "btn-icon";
         btn.appendChild(btnIcon);
-        btn.innerHTML += "<p>Add to Cart</p>";
+        btn.innerHTML += `<p class="add-to-cart-text">Add to Cart</p>`;
         
         const productCategory = document.createElement("p");
         productCategory.textContent = product.category;
@@ -245,7 +299,9 @@ fetch(`./data.json`)
         card.appendChild(productPrice);
         
         content.appendChild(card);
+        const addToCartText = btn.querySelector(".add-to-cart-text");
+            addToCartText.addEventListener("click", () => addToCart(product));
             });
 
-           
+            
         }

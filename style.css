@@ -101,6 +101,7 @@ h3 {
 
 .btns {
   border-radius: 50px;
+  min-width: 100px;
   display: flex;
   align-items: center;
   padding: 5px 10px 5px 10px;
@@ -109,7 +110,9 @@ h3 {
   bottom: 60px;
   left: 35px;
   cursor: pointer;
+  color: hsl(14, 65%, 9%);
   background-color: white;
+  justify-content: space-between;
 }
 
 .btns:hover {
@@ -125,7 +128,7 @@ h3 {
 .btns p {
   font-size: 10px;
   font-weight: 700;
-  color: hsl(14, 65%, 9%);
+  
   transition: 0.5s;
   padding: 3px 5px 3px 5px;
 }
@@ -137,6 +140,21 @@ h3 {
 .selected-btn {
   background-color: hsl(14, 86%, 42%);
   color: white;
+  border: 1px solid hsl(14, 86%, 42%);
+}
+
+.btns.selected-btn:hover {
+  p {
+
+    color: white;
+  }
+}
+
+.icon-btn {
+  background-color: hsl(14, 86%, 42%);
+  border-radius: 50px;
+  height: 25px;
+  border: 1px solid white;
 }
 
 #cart {
